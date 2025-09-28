@@ -29,13 +29,13 @@ const jugar = (puntosDiversion) => {
   console.log(`¡Qué divertido! La felicidad de ${nombreMascota} ha aumentado. Felicidad: ${nivelFelicidad}/100.`);
 };
 
-// Función Flecha: Simular el paso del tiempo
-const simularPasoDelTiempo = () => {
-  for (let i = 0; i < 4; i++) {  // Simula 4 horas
-    nivelHambre += 10;    // Aumenta hambre
-    nivelFelicidad -= 5;  // Disminuye felicidad
 
-    // Mantener valores dentro de 0 - 100
+const simularPasoDelTiempo = () => {
+  for (let i = 0; i < 4; i++) {  
+    nivelHambre += 10;    
+    nivelFelicidad -= 5;  
+
+    
     if (nivelHambre > 100) nivelHambre = 100;
     if (nivelFelicidad < 0) nivelFelicidad = 0;
   }
@@ -44,9 +44,9 @@ const simularPasoDelTiempo = () => {
   mostrarEstado();
 };
 
-// Función Declarativa: Diagnóstico de la mascota
+
 function diagnosticoMascota() {
-  // Evaluar hambre
+  
   if (nivelHambre < 30) {
     console.log("Tu mascota está satisfecha.");
   } else if (nivelHambre < 60) {
@@ -55,7 +55,7 @@ function diagnosticoMascota() {
     console.log("¡Alerta! Tu mascota está muy hambrienta.");
   }
 
-  // Evaluar felicidad con switch
+  
   switch (true) {
     case nivelFelicidad >= 70:
       console.log("Tu mascota está muy feliz y juguetona.");
@@ -69,8 +69,59 @@ function diagnosticoMascota() {
   }
 }
 
-alimentar(20);  
-jugar(30); 
- mostrarEstado();
- simularPasoDelTiempo();  
-diagnosticoMascota(); 
+
+function iniciarCuidado() {
+  while (true) {
+    
+    let opcion = prompt(`Menú de Cuidado de Mascota:
+1 - Alimentar a la mascota
+2 - Jugar con la mascota
+3 - Simular el paso del tiempo
+4 - Ver diagnóstico de la mascota
+5 - Mostrar estado actual
+6 - Despedirse de la mascota`);
+
+    
+    switch (opcion) {
+      case '1':
+        let puntosComida = parseInt(prompt("¿Cuántos puntos de comida le quieres dar a la mascota?"));
+        if (!isNaN(puntosComida)) {
+          alimentar(puntosComida);
+        } else {
+          console.log("Por favor ingresa un número válido.");
+        }
+        break;
+
+      case '2':
+        let puntosDiversion = parseInt(prompt("¿Cuántos puntos de diversión le quieres dar a la mascota?"));
+        if (!isNaN(puntosDiversion)) {
+          jugar(puntosDiversion);
+        } else {
+          console.log("Por favor ingresa un número válido.");
+        }
+        break;
+
+      case '3':
+        simularPasoDelTiempo();
+        break;
+
+      case '4':
+        diagnosticoMascota();
+        break;
+
+      case '5':
+        mostrarEstado();
+        break;
+
+      case '6':
+        console.log(`¡Adiós! ${nombreMascota} te espera para jugar más tarde 🐾`);
+        return; 
+
+      default:
+        console.log("Opción no válida. Por favor elige una opción del 1 al 6.");
+    }
+  }
+}
+
+
+iniciarCuidado();
